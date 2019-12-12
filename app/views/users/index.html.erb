@@ -1,6 +1,5 @@
-<%= notice %>
+<h1>Users</h1>
 
-<h1>User info</h1>
 
 <div class="profile-container">
     <%= attachment_image_tag @user, :profile_image, :fill, 60, 60, class: "img-circle pull-left profile-thumb", fallback: "no_image.jpg"%>
@@ -37,20 +36,14 @@
     </div>
 <% end %>
 
-<h1>Books</h1>
-<% @books.each do |book| %>
 
-<%= link_to user_path(book.user_id) do %>
-<%= attachment_image_tag book.user, :profile_image, :fill, 60, 60, class: "img-circle pull-left profile-thumb", fallback: "no_image.jpg" %>
+
+<% @users.each do |user| %>
+  
+<%= attachment_image_tag user, :profile_image, :fill, 60, 60, format: 'jpeg', class: "img-circle pull-left profile-img", fallback: "no_image.jpg" %>
+<div><%= user.name %></div>
+<%= link_to user_path(user) do %>
+<p>Show</p>
 <% end %>
 
-
-<%= link_to book_path(book) do %>
-<div><%= book.title %></div>
 <% end %>
-
-<div><%= book.opinion %></div>
-
-<% end %>
-
-

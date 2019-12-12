@@ -1,0 +1,7 @@
+<h1>edit</h1>
+
+<%= form_for(@book) do |f| %>
+  <%= f.text_field :title %>
+  <%= f.text_area :opinion %>
+  <%= f.submit "Update Book" %>
+<% end %>
