@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, only: [:show, :index, :edit, :update, :user_params]
+  before_action :ensure_correct_user,only: [:edit]
+
   def home
     render :home
   end
@@ -15,6 +17,15 @@ class UsersController < ApplicationController
     @book = Book.new
     @users = User.all
 
+  end
+
+  def ensure_correct_user
+    @user = User.find(params[:id])
+    if @user != current_user
+      redirect_to user_path(current_user)
+    else
+      render :edit
+    end
   end
 
   def edit

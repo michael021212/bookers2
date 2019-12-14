@@ -1,49 +1,100 @@
-<h1>Users</h1>
+
+<div class="container">
+    <div class="sidebar col-lg-3">
+
+        <div class="row">
+            <h1 class="row">User info</h1>
+
+            <div class="profile-container row">
+                <%= attachment_image_tag @user, :profile_image, :fill, 100, 100, class: "img-thumnail pull-left profile-thumb", fallback: "no_image.jpg"%>
+            </div>
+
+            <table class="table">
+                <tr>
+                    <th>name</th>
+                    <th class="profile-name"><%= @user.name %></th>
+                </tr>
+
+                <tr>
+                    <th>introduction</th>
+                    <th class="profile-introduction"><%= @user.introduction %></th>
+                </tr>
+            </table>
+
+            <div>
+            <%= link_to "", edit_user_path(@user), class: "glyphicon glyphicon-wrench btn btn-default col-lg-12", style:"color: black" %>
+            </div>
+
+        </div>
 
 
-<div class="profile-container">
-    <%= attachment_image_tag @user, :profile_image, :fill, 60, 60, class: "img-circle pull-left profile-thumb", fallback: "no_image.jpg"%>
+        <div class="row">
+            <%= form_for(@book, url: books_path) do |f| %>
+                <div>
+                    <% if @book.errors.any? %>
+                      <div id="error_explanation">
+                        <h2><%= @book.errors.count %>件のエラーが発生しました。</h2>
+                        <ul>
+                            <% @book.errors.full_messages.each do |message| %>
+                              <li><%= message %></li>
+                            <% end %>
+                        </ul>
+                      </div>
+                    <% end %>
+                </div>
 
-    <h3>name</h3>
-    <h3 class="profile-name"><%= @user.name %></h3>
+                <h1 class="">New book</h1>
 
-    <h3>introduction</h3>
-    <h3 class="profile-introduction"><%= @user.introduction %></h3>
-    <div>
-    <p><%= link_to "プロフィール編集マーク", edit_user_path(@user), class: "pull-right" %></p>
+                <div class="row">
+                    <h5>Title</h5>
+                    <div><%= f.text_field :title, class: "col-lg-12"  %></div>
+                </div>
+
+                <div class="row">
+                    <h5>Opinion</h5>
+                     <div><%= f.text_area :body, class: "col-lg-12"  %></div>
+                </div>
+
+                <div class="row">
+                    <div style="margin-top: 10px;"><%= f.submit "Create Book", class: "btn btn-primary col-lg-12" %></div>
+                </div>
+            <% end %>
+
+        </div>
+    </div>
+
+
+    <div class="main col-lg-9">
+        <h1>Users</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>image</th>
+                    <th>name</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <% @users.each do |user| %>
+                <tr>
+                    <td>
+                        <%= attachment_image_tag user, :profile_image, :fill, 50, 50, format: 'jpeg', class: "img-thumnail pull-left profile-img", fallback: "no_image.jpg", size:'40x40' %>
+                    </td>
+                    
+                    <td>
+                        <p><%= user.name %></p>
+                    </td>
+                    
+                    <td>
+                        <%= link_to user_path(user) do %>
+                            <p>Show</p>
+                        <% end %>
+                    </td>
+                </tr>
+            <% end %>
+        </table>
     </div>
 </div>
 
-<%= form_for(@book, url: books_path) do |f| %>
-    <% if @book.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= @book.errors.count %>件のエラーが発生しました。</h2>
-        <ul>
-        <% @book.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-        </ul>
-      </div>
-    <% end %>
-
-    <h1>New book</h1>
-    <h3>Title</h3>
-    <%= f.text_field :title %>
-    <h3>Opinion</h3>
-    <%= f.text_area :opinion %>
-    <div>
-    <p><%= f.submit "Create Book", class: "pull-right" %></p>
-    </div>
-<% end %>
 
 
-
-<% @users.each do |user| %>
-  
-<%= attachment_image_tag user, :profile_image, :fill, 60, 60, format: 'jpeg', class: "img-circle pull-left profile-img", fallback: "no_image.jpg" %>
-<div><%= user.name %></div>
-<%= link_to user_path(user) do %>
-<p>Show</p>
-<% end %>
-
-<% end %>
