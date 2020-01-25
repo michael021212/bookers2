@@ -1,50 +1,44 @@
 
 <div class="container">
-<p><%= notice %></p>
+    <p><%= notice %></p>
     <div>
         <% if @book.errors.any? %>
-          <div id="error_explanation">
-            <h2><%= @book.errors.count %>件のerrorが発生しました。</h2>
-            <ul>
-                <% @book.errors.full_messages.each do |message| %>
-                  <li><%= message %></li>
-                <% end %>
-            </ul>
-          </div>
+            <div id="error_explanation">
+                <h2><%= @book.errors.count %>件のerrorが発生しました。</h2>
+                <ul>
+                    <% @book.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                    <% end %>
+                </ul>
+            </div>
         <% end %>
     </div>
 
     <div class="sidebar col-lg-3">
-
         <div class="row">
             <h1 class="row">User info</h1>
-
             <div class="profile-container row">
                 <%= attachment_image_tag current_user, :profile_image, :fill, 100, 100, class: "img-thumnail pull-left profile-thumb", fallback: "no_image.jpg"%>
             </div>
-
             <table class="table">
                 <tr>
                     <th>name</th>
                     <th class="profile-name"><%= current_user.name %></th>
                 </tr>
-
                 <tr>
                     <th>introduction</th>
                     <th class="profile-introduction"><%= current_user.introduction %></th>
                 </tr>
             </table>
-
             <div>
-            <%= link_to "", edit_user_path(current_user), class: "glyphicon glyphicon-wrench btn btn-default col-lg-12", style:"color: black" %>
+                <%= link_to "", edit_user_path(current_user), class: "glyphicon glyphicon-wrench btn btn-default col-lg-12", style:"color: black" %>
             </div>
-
         </div>
 
 
         <div class="row">
             <%= form_for(@book, url: books_path) do |f| %>
-                
+
 
                 <h1 class="">New book</h1>
 
@@ -69,14 +63,15 @@
     <div class="main col-lg-9">
         <h1>Books</h1>
         <table class="table table-hover table-inverse">
-
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Title</th>
-                        <th>Opinion</th>
-                    </tr>
-                </thead>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Title</th>
+                    <th>Opinion</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
 
             <% @books.each do |book| %>
                 <tr>
@@ -85,20 +80,41 @@
                         <%= attachment_image_tag book.user, :profile_image, :fill, 50, 50, class: "img-thumnail pull-left profile-thumb", fallback: "no_image.jpg",size: '40x40' %>
                     <% end %>
                     </td>
-                    
+
                     <td>
                         <%= link_to book_path(book) do %>
                             <div><%= book.title %></div>
                         <% end %>
                     </td>
-                    
+
                     <td>
                         <div><%= book.body %></div>
                     </td>
+
+                    <td>
+                        <div>
+                            <% if book.favorited_by?(current_user) %>
+                                <%= link_to book_favorites_path(book.id), method: :delete do %>
+                                    <i class="fas fa-heart"></i>
+                                    <%= book.favorites.count %>
+                                <% end %>
+                            <% else %>
+                                <%= link_to book_favorites_path(book.id), method: :post do %>
+                                    <i class="far fa-heart"></i>
+                                    <%= book.favorites.count %>
+                                <% end %>
+                            <% end %>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div>
+                            <p><%= "コメント数: #{book.comments.count}" %></p>
+                        </div>
+                    </td>
+
                 </tr>
             <% end %>
         </table>
     </div>
-
-
 </div>

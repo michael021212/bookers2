@@ -84,6 +84,26 @@
                     <%= @book.body %>
                 </td>
 
+                <td>
+                    <% if @book.favorited_by?(current_user) %>
+                        <%= link_to book_favorites_path(@book.id, page: "show"), method: :delete do %>
+                            <i class="fas fa-heart"></i>
+                            <%= @book.favorites.count %>
+                        <% end %>
+                    <% else %>
+                        <%= link_to book_favorites_path(@book.id, page: "show"), method: :post do %>
+                            <i class="far fa-heart"></i>
+                            <%= @book.favorites.count %>
+                        <% end %>
+                    <% end %>
+                </td>
+
+                    <td>
+                        <div>
+                            <p><%= "コメント数: #{@book.comments.count}" %></p>
+                        </div>
+                    </td>
+
                 <% if @book.user == current_user %>
                 <td>
                      <%= link_to "Edit", edit_book_path, class: "btn-sm btn-success" %>
@@ -94,6 +114,33 @@
             <% end %>
             </tr>
         </table>
+
+        <div>
+            <%= form_for [@book, @comment] do |f| %>
+                <%= f.text_area :body, placeholder: 'コメントを入力', value: '' %>
+                <%= f.submit %>
+            <% end %>
+        </div>
+
+        <table>
+            <h1>Comments</h1>
+            <% @book.comments.each do |c| %>
+                <tr>
+                    <td>
+                        <%= c.user_id %>
+                    </td>
+                    <td>
+                        <%= c.body %>
+                    </td>
+                    <% if c.user == current_user %>
+                        <td>
+                            <%= link_to "Delete", book_comments_path(c.book_id, comment_id: c), class: "btn-sm btn-success", method: :delete %>
+                        </td>
+                    <% end %>
+                </tr>
+            <% end %>
+        </table>
+
     </div>
 
 </div>

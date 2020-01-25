@@ -26,6 +26,8 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
     @books = Book.all
     @book_new = Book.new
+    # @comment = current_user.comments.build(book_id: params[:book_id])
+    @comment = Comment.new
   end
 
   def ensure_correct_user
@@ -33,7 +35,7 @@ class BooksController < ApplicationController
     if @book.user_id != current_user.id
       redirect_to books_path
     end
-    
+
   end
 
   def edit
@@ -57,7 +59,7 @@ class BooksController < ApplicationController
       render :edit
     end
   end
-  
+
   private
   def book_params
     params.require(:book).permit(:title, :body)

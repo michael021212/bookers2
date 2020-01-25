@@ -10,6 +10,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @book = Book.new
     @books = @user.books.all
+    @favorite_books = @user.favorite_books
+    @comments = @user.comments
   end
 
   def index

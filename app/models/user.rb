@@ -10,4 +10,8 @@ class User < ApplicationRecord
   has_many :books, dependent: :destroy
 
   has_many :favorites
+  has_many :favorite_books, through: :favorites, source: :book
+
+  has_many :comments
+  has_many :comment_books, through: :comments, source: :book
 end
