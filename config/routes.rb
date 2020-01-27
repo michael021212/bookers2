@@ -1,9 +1,17 @@
 Rails.application.routes.draw do
-  get 'comments/create'
-  get 'comments/destroy'
+  # get 'relationships/create'
+  # get 'relationships/destroy'
+  # get 'comments/create'
+  # get 'comments/destroy'
   root to: 'users#home'
   devise_for :users
-  resources :users
+
+  resources :users do
+    resource :relationships, only: [:create, :destroy]
+    get :follows, on: :member
+    get :followers, on: :member
+  end
+
   resources :books do
     resource :favorites, only: [:create, :destroy]
     resource :comments, only: [:create, :destroy]

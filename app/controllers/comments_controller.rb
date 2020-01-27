@@ -1,10 +1,12 @@
 class CommentsController < ApplicationController
   def create
-    # @comment = current_user.comments.build(book_id: params[:book_id])
-    book = Book.find(params[:book_id])
-    @comment = Comment.new(comment_params)
-    @comment.user_id = current_user.id
-    @comment.book_id = book.id
+    # 短い書き方
+    @comment = current_user.comments.build(book_id: params[:book_id], body: params[:comment][:body])
+    # 基本的な書き方
+    # book = Book.find(params[:book_id])
+    # @comment = Comment.new(comment_params)
+    # @comment.user_id = current_user.id
+    # @comment.book_id = book.id
     @comment.save
     redirect_to book_path(params[:book_id])
   end

@@ -29,6 +29,14 @@
                     <th>introduction</th>
                     <th class="profile-introduction"><%= current_user.introduction %></th>
                 </tr>
+                <tr>
+                    <th>フォロー数</th>
+                    <th><%= link_to current_user.active_relationships.all.count, follows_user_path(current_user) %></th>
+                </tr>
+                <tr>
+                    <th>フォロワー数</th>
+                    <th><%= link_to current_user.passive_relationships.all.count, followers_user_path(current_user) %></th>
+                </tr>
             </table>
             <div>
                 <%= link_to "", edit_user_path(current_user), class: "glyphicon glyphicon-wrench btn btn-default col-lg-12", style:"color: black" %>
