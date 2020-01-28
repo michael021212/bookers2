@@ -42,17 +42,24 @@
         <div>
             <%# urlを書かなくても自動予測してくれるはずだが、なぜかbook_comment_pathを参照していたので明記した %>
             <%= form_with(model:[book, comment],url: book_comments_path(book,comment)) do |f| %>
-                <%= f.text_area :body, placeholder: 'コメントを入力', class: "form" %>
+                <%= f.text_area :body, placeholder: 'コメントを入力', class: "form", size: "120x5" %>
                 <%= f.submit %>
             <% end %>
         </div>
 
-        <table>
+        <table class="table">
             <h1>Comments</h1>
+            <thead>
+                <tr>
+                    <th>名前</th>
+                    <th>コメント</th>
+                    <th></th>
+                </tr>
+            </thead>
             <% book.comments.each do |c| %>
                 <tr>
                     <td>
-                        <%= c.user_id %>
+                        <%= c.user.name %>
                     </td>
                     <td>
                         <%= c.body %>
