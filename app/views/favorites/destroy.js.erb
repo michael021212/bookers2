@@ -1,0 +1,9 @@
+$("#book-<%= @book.id %>").html("<%= escape_javascript(render 'books/favorite', book: @book )%>")
+
+
+/*
+favo-conでdestroyが実行され次第、@bookが最新の状態でこのファイルがrenderされる。
+#book-<%= @book.id %>  というidをもつ要素内のhtmlを書き換える記述。
+どう書き換えるのかが.html()内に書いてある *escape_javascriptを書かないと''などでハマる
+パーシャルで分けてあるbooks/favoriteを最新の状態の@bookを渡してrenderする
+*/

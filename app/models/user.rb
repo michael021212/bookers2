@@ -24,4 +24,17 @@ class User < ApplicationRecord
   def followed_by?(user)
     passive_relationships.find_by(following_id: user.id).present?
   end
+
+  def self.search(search, select_type)
+    case select_type
+    when '1' # 完全一致
+      User.where(['name LIKE ?', "#{search}"])
+    when '2' # 前方一致
+      User.where(['name LIKE ?', "#{search}%"])
+    when '3' # 後方一致
+      User.where(['name LIKE ?', "%#{search}"])
+    else # 部分一致
+      User.where(['name LIKE ?', "%#{search}%"])
+    end
+  end
 end

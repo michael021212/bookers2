@@ -17,4 +17,18 @@ class Book < ApplicationRecord
   def comment_user(book)
     @comment_user = User.where(book.comments.user_id).name
   end
+
+  def self.search(search, select_type)
+    case select_type
+    when '1' # 完全一致
+      Book.where(['title LIKE ?', "#{search}"])
+    when '2' # 前方一致
+      Book.where(['title LIKE ?', "#{search}%"])
+    when '3' # 後方一致
+      Book.where(['title LIKE ?', "%#{search}"])
+    else # 部分一致
+      Book.where(['title LIKE ?', "%#{search}%"])
+    end
+  end
+
 end

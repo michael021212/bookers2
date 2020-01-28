@@ -1,5 +1,10 @@
 
 <div class="container">
+    <%# そもそもログインしてなきゃいろんな画面に入れないから不要 %>
+    <% if user_signed_in? %>
+        <%= render "/search_box" %>
+    <% end %>
+
 <p><%= notice %></p>
     <div class="sidebar col-lg-3">
 

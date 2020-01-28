@@ -1,0 +1,67 @@
+    <h1>Book detail</h1>
+        <table class="table">
+            <tr>
+                <td>
+                    <%= link_to user_path(book.user) do %>
+                        <%= attachment_image_tag book.user, :profile_image, :fill, 40, 40, format: 'jpeg', class: "img-thumnail", fallback: "no_image.jpg", size:"40x40" %><br>
+                        <%= book.user.name %>
+                    <% end %>
+                </td>
+                <td>
+                    <%= link_to book_path(book.id) do %>
+                    <%= book.title %>
+                    <% end %>
+                </td>
+                <td>
+                    <%= book.body %>
+                </td>
+
+                    <td>
+                        <div id=<%= "book-#{book.id}" %>>
+                            <%= render "books/favorite", book: book %> <!-- render先の_favoriteで使うbookにbookを渡す -->
+                        </div>
+                    </td>
+
+                    <td>
+                        <div>
+                            <p><%= "コメント数: #{book.comments.count}" %></p>
+                        </div>
+                    </td>
+
+                <% if book.user == current_user %>
+                <td>
+                     <%= link_to "Edit", edit_book_path, class: "btn-sm btn-success" %>
+                </td>
+                <td>
+                    <%= link_to "Destroy", book_path(book), class: "btn-sm btn-danger", method: :delete, data: {confirm: '本当に消しますか？'} %>
+                </td>
+            <% end %>
+            </tr>
+        </table>
+
+        <div>
+            <%# urlを書かなくても自動予測してくれるはずだが、なぜかbook_comment_pathを参照していたので明記した %>
+            <%= form_with(model:[book, comment],url: book_comments_path(book,comment)) do |f| %>
+                <%= f.text_area :body, placeholder: 'コメントを入力', class: "form" %>
+                <%= f.submit %>
+            <% end %>
+        </div>
+
+        <table>
+            <h1>Comments</h1>
+            <% book.comments.each do |c| %>
+                <tr>
+                    <td>
+                        <%= c.user_id %>
+                    </td>
+                    <td>
+                        <%= c.body %>
+                    </td>
+                    <% if c.user == current_user %>
+                        <td>
+                            <%= link_to "Delete", book_comments_path(c.book_id, comment_id: c), class: "btn-sm btn-success", method: :delete, remote: :true %>
+                        </td>
+                    <% end %>
+                </tr>
+            <% end %>
+        </table>

@@ -1,0 +1,9 @@
+$(".detail-<%= @book.id %>").html("<%= escape_javascript(render 'books/book_detail.html.erb', book: @book, comment: @comment )%>")
+$(".form").val("")
+/*コメント投稿してJSでhtml書き換えたら、.formのvalueを空にする。これを書かないとフォームに残ったままになる*/
+
+/*
+render 'book_detail.html.erb'で同じcommentsフォルダのbook_datail.html.erbを呼び出してくれそうだが、
+comments/book_detail.html.erbを呼び出してエラーになってしまったので、
+books/を頭につけてしっかりと指定してあげる
+*/

@@ -8,17 +8,20 @@ class CommentsController < ApplicationController
     # @comment.user_id = current_user.id
     # @comment.book_id = book.id
     @comment.save
-    redirect_to book_path(params[:book_id])
+    @book = @comment.book
+    @comment = Comment.new # 非同期でBook detailをrenderするので、books#showで定義しているComment.newをCommentsコントローラでも再定義
+    # redirect_to book_path(params[:book_id])
   end
 
   def destroy
     @comment = Comment.find(params[:comment_id])
     @comment.destroy
-    if params[:page]
-      redirect_to user_path(params[:user_id])
-    else
-      redirect_to book_path(params[:book_id])
-    end
+    @book = @comment.book
+    # if params[:page]
+    #   redirect_to user_path(params[:user_id])
+    # else
+    #   redirect_to book_path(params[:book_id])
+    # end
   end
 
   private

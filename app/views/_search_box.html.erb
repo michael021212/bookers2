@@ -1,0 +1,8 @@
+<div class="w" style="text-align: center;">
+    <%= form_tag(search_path, :method => 'get') do %>
+        <%= text_field_tag :search %>
+        <%= select_tag 'select', options_for_select([['User', '1'], ['Book', '2']]) %>
+        <%= select_tag 'select_type', options_for_select([['完全一致', '1'], ['前方一致', '2'], ['後方一致', '3'], ['部分一致', '4']]) %>
+        <%= submit_tag 'Search', :name => nil %>
+    <% end %>
+</div>

@@ -1,0 +1,24 @@
+/* jquery */
+$("#book-<%= @book.id %>").html("<%= escape_javascript(render 'books/favorite', book: @book )%>")
+
+
+/* js(変数使う。console.log書くとブラウザの開発者画面で確認できる) */
+/*
+var favorite_div = document.getElementById("book-<%= @book.id %>");
+favorite_div.innerHTML = "<%= escape_javascript(render 'books/favorite', book: @book )%>";
+console.log(favorite_div.innerHTML);
+*/
+
+
+/* js(一行で書くパターン) */
+/*
+document.getElementById("book-<%= @book.id %>").innerHTML = "<%= escape_javascript(render 'books/favorite', book: @book )%>";
+*/
+
+
+/*
+favo-conでcreateが実行され次第、@bookが最新の状態でこのファイルがrenderされる。
+#book-<%= @book.id %>  というidをもつ要素内のhtmlを書き換える記述。
+どう書き換えるのかが.html()内に書いてある *escape_javascriptを書かないと''などでハマる
+パーシャルで分けてあるbooks/favoriteを最新の状態の@bookを渡してrenderする
+*/
