@@ -42,7 +42,7 @@
         <div>
             <%# urlを書かなくても自動予測してくれるはずだが、なぜかbook_comment_pathを参照していたので明記した %>
             <%= form_with(model:[book, comment],url: book_comments_path(book,comment)) do |f| %>
-                <%= f.text_area :body, placeholder: 'コメントを入力', class: "form", size: "120x5" %>
+                <%= f.text_area :body, placeholder: 'コメントを入力', class: "form", size: "90x5" %>
                 <%= f.submit %>
             <% end %>
         </div>
