@@ -159,9 +159,12 @@
     </div>
 </div>
 
-<div class="container">
-    <div id="map"></div>
-</div>
+<% if @user == current_user %>
+    <div class="container">
+        <div id="map"></div>
+        <div id="address" style="display: none;"><%= @user.prefecture_name + @user.address_city + @user.address_street + @user.address_building %></div>
+    </div>
+    <script src=<%= "https://maps.googleapis.com/maps/api/js?key=#{ENV['KEY']}&callback=initMap" %> async defer></script>
+<% end %>
 
-<script src=<%= "https://maps.googleapis.com/maps/api/js?key=#{ENV['KEY']}&callback=initMap" %> async defer></script>
 
