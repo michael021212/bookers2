@@ -1,10 +1,18 @@
-
-// function initMap(){
-//   let map = new google.maps.Map(document.getElementById('map'), {
-//   center: {lat: -34.397, lng: 150.644},
-//   zoom: 8
-//   });
-// }
+// #2と#14消しても大丈夫
+$(function() {
+  $(document).on('turbolinks:load', () => {
+    $('#user_postcode').jpostal({
+      postcode : [
+        '#user_postcode'
+      ],
+      address: {
+        "#user_prefecture_code": "%3", // # 都道府県が入力される
+        "#user_address_city"           : "%4%5", // # 市区町村と町域が入力される
+        "#user_address_street"         : "%6%7" // # 大口事務所の番地と名称が入力される
+      }
+    });
+  });
+});
 
 
 function initMap() {
