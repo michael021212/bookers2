@@ -5,7 +5,11 @@ Rails.application.routes.draw do
   # get 'comments/create'
   # get 'comments/destroy'
   root to: 'users#home'
-  devise_for :users
+  # deviseのコントローラーをカスタマイズしたのでroutesを編集しないと反映されない
+  devise_for :users, :controllers => {
+    :registrations => 'users/registrations',
+    :sessions => 'users/sessions'
+  }
 
   resources :users do
     resource :relationships, only: [:create, :destroy]

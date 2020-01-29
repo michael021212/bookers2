@@ -5,7 +5,7 @@ class SignupMailer < ApplicationMailer
     @user = user
     mail(
       subject: '新規登録メール',
-      to: user.email
+      to: @user.email
     )
   end
 end
