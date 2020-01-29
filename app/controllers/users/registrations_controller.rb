@@ -12,6 +12,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     super
+    @user = User.last
+    SignupMailer.create_email(@user).deliver_now
   end
 
   # GET /resource/edit
