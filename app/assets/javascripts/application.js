@@ -16,3 +16,17 @@
 //= require jquery
 //= require bootstrap-sprockets
 //= require_tree .
+
+/*
+// document.addEventListener('turbolinks:load',
+
+// );
+
+// javascript/users/user.jsに書いたのでコメントアウトした
+// function initMap(){
+//   let map = new google.maps.Map(document.getElementById('map'), {
+//   center: {lat: -34.397, lng: 150.644},
+//   zoom: 8
+//   });
+// }
+*/
